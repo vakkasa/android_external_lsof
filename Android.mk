@@ -36,8 +36,11 @@ LOCAL_CFLAGS := -g -W -Wall \
 	-DHASIPv6 \
 	-D_FILE_OFFSET_BITS=32 \
 	-DHAS_STRFTIME \
-	-DLSOF_VSTR=\"2.6.32-androidlol\" \
-	-fno-strict-aliasing
+	-DLSOF_VSTR=\"2.6.32-androidlol\"
+
+ifneq ($(DEBUG_FORCE_STRICT_ALIASING),yes)
+LOCAL_CFLAGS += -fno-strict-aliasing
+endif
 
 ifeq ($(findstring -O, $(TARGET_GLOBAL_CFLAGS)),)
 LOCAL_CFLAGS += -Os
