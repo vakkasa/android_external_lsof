@@ -7,7 +7,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-        lib/ckkv.c \
+	lib/ckkv.c \
 	lib/cvfs.c \
 	lib/dvch.c \
 	lib/fino.c \
@@ -15,7 +15,7 @@ LOCAL_SRC_FILES := \
 	lib/lkud.c \
 	lib/pdvn.c \
 	lib/prfp.c \
-        lib/ptti.c \
+	lib/ptti.c \
 	lib/rdev.c \
 	lib/regex.c \
 	lib/rmnt.c \
@@ -30,13 +30,21 @@ LOCAL_MODULE_TAGS:= eng
 LOCAL_C_INCLUDES := \
 	external/clearsilver/util/regex
 
-LOCAL_CFLAGS := -Os -g -W -Wall \
-        -DLINUXV=26032 \
-        -D__BIONIC__ \
-        -DHASIPv6 \
-        -D_FILE_OFFSET_BITS=32 \
-        -DHAS_STRFTIME \
-        -DLSOF_VSTR=\"2.6.32-androidlol\"
+LOCAL_CFLAGS := -g -W -Wall \
+	-DLINUXV=26032 \
+	-D__BIONIC__ \
+	-DHASIPv6 \
+	-D_FILE_OFFSET_BITS=32 \
+	-DHAS_STRFTIME \
+	-DLSOF_VSTR=\"2.6.32-androidlol\" \
+	-fno-strict-aliasing
+
+ifeq ($(findstring -O, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
+ifneq ($(findstring -O0, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
 
 LOCAL_PRELINK_MODULE := false
 
@@ -54,13 +62,21 @@ LOCAL_SRC_FILES := \
 LOCAL_C_INCLUDES := \
 	external/clearsilver/util/regex
 
-LOCAL_CFLAGS := -Os -g -W -Wall \
+LOCAL_CFLAGS := -g -W -Wall \
 	-DLINUXV=26032 \
 	-D__BIONIC__ \
 	-DHASIPv6 \
 	-D_FILE_OFFSET_BITS=32 \
 	-DHAS_STRFTIME \
-	-DLSOF_VSTR=\"2.6.32-androidlol\"
+	-DLSOF_VSTR=\"2.6.32-androidlol\" \
+	-fno-strict-aliasing
+
+ifeq ($(findstring -O, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
+ifneq ($(findstring -O0, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
 
 LOCAL_MODULE := lsof
 LOCAL_MODULE_TAGS := eng
@@ -89,7 +105,15 @@ LOCAL_CFLAGS := -Os -g -W -Wall \
 	-DHASIPv6 \
 	-D_FILE_OFFSET_BITS=32 \
 	-DHAS_STRFTIME \
-	-DLSOF_VSTR=\"2.6.32-androidlol\"
+	-DLSOF_VSTR=\"2.6.32-androidlol\" \
+	-fno-strict-aliasing
+
+ifeq ($(findstring -O, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
+ifneq ($(findstring -O0, $(TARGET_GLOBAL_CFLAGS)),)
+LOCAL_CFLAGS += -Os
+endif
 
 LOCAL_MODULE := utility_lsof
 LOCAL_MODULE_TAGS := eng
